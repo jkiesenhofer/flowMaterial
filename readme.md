@@ -8,5 +8,6 @@ Dieses Projekt ist eine **2D-Schüttgutsimulation** in Python, die zufällige Pu
 ## Installation
 
 ```bash
-git clone https://github.com/deinusername/schuettgut.git
+git clone https://github.com/jkiesenhofer/bulkmaterial.git
 cd bulkmaterial
+pip install openpiv
