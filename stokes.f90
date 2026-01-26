@@ -15,7 +15,7 @@ program stokeszahl
      dp = i * 1.0d-6    ! Partikeldurchmesser [m]
      St1 = rho_p * dp**2 * Ua / (18.0d0 * mu * L)
      St2 = rho_p * dp**2 * Ub / (18.0d0 * mu * L)
-     write(10,*) dp, St2
+     write(10,*) dp, St1, St2
   end do
 
   close(10)
