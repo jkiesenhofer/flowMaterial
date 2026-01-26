@@ -4,6 +4,6 @@ set output "stokes.png"
 set title "Bubble follows the flow"
 set xlabel "dp"
 set ylabel "St"
-plot "stokes.dat" with lines title "μ=0, σ=1"
+plot "stokes.dat" with lines title "ρ_p=2500, μ = 1.8d-5 "
 
 set output
