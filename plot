@@ -15,10 +15,11 @@ plot "stokes.dat" using 1:2 with lines title "Ua", \
      "stokes.dat" using 1:4 with lines title "Uc"
 
 set ylabel "Re"
-set xtics 0, 0.00005, 0.0001
+set xtics auto #0, 0.00005, 0.0001
 set ytics auto
 set mytics 2
-set mxtics 2
+set mxtics 10
+set logscale x
 set xlabel "db"
 plot "stokes.dat" using 1:5 with lines title "Re"
 
