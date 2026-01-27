@@ -1,7 +1,7 @@
 program stokeszahl
   implicit none
   integer :: i
-  real(8) :: dp, rho_p, rho_b, mu, Ua, Ub, Uc, L, K1, K2, K3, Reb
+  real(8) :: dp, db, rho_p, rho_b, mu, Ua, Ub, Uc, L, K1, K2, K3, Reb
 
   rho_p = 2500.0d0      ! Partikeldichte [kg/m^3]
   rho_b =  1.293d0      ! Blasendichte [kg/m^3]
