@@ -9,8 +9,8 @@ v = 0.5;           % Geschwindigkeit [m/s]
 L = linspace(1e-4, 1e-2, 200); % [m]
 
 % Dimensionslose Kennzahlen
-Eo = (delta_rho .* g .* L.^2) ./ sigma; % Gravitationskräfte zu Oberflächenspannungskräften
-We = (rho .* v.^2 .* L) ./ sigma;       % Trägheitskräften zu Oberflächenspannungskräften
+Eo = (delta_rho .* g .* L.^2) ./ sigma; % Gravitationskräfte zu Oberflächenspannungskräfte
+We = (rho .* v.^2 .* L) ./ sigma;       % Trägheitskräfte zu Oberflächenspannungskräfte
 
 % Plot
 figure
