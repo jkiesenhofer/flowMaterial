@@ -14,7 +14,7 @@ We = (rho .* v.^2 .* L) ./ sigma;       % Trägheitskräfte zu Oberflächenspann
 
 % Plot
 figure
-plot(Eo, We, 'LineWidth', 2)
+loglog(Eo, We, 'LineWidth', 2)
 xlabel('Eötvös-Zahl (Eo)')
 ylabel('Weber-Zahl (We)')
 grid on
