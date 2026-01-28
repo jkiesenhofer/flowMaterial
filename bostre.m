@@ -10,8 +10,8 @@ Re = linspace(1, 1000, 50);      % Reynolds-Zahl
 [St_grid, Re_grid] = meshgrid(St, Re);
 
 %% Zusammenhang definieren (Beispielmodell!)
-% HIER ggf. deine echte physikalische Gleichung einsetzen
-Eo = St_grid .* sqrt(Re_grid);
+% HIER ggf. echte physikalische Gleichung einsetzen
+Eo = St_grid .* sqrt(Re_grid); % Gravitationskräfte zu Oberflächenspannungskräfte
 
 %% 3D-Plot
 figure
