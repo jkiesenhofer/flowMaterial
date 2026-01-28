@@ -4,7 +4,7 @@ close all
 
 %% Wertebereiche festlegen
 St = linspace(0.01, 10, 50);     % Partikelträgheit zur Strömungsgeschwindigkeit des Fluids
-Re = linspace(1, 1000, 50);      % Reynolds-Zahl
+Re = linspace(1, 1000, 50);      % Trägheitskräfte zu viskosen Kräfte
 
 %% Gitter erzeugen
 [St_grid, Re_grid] = meshgrid(St, Re);
