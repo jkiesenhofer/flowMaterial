@@ -7,7 +7,6 @@ L = (max(max(x)) + max(max(y)))/2;
 u =  sin(y) + 0.5*cos(3*x).*sin(2*y);
 v = -sin(x) + 0.5*sin(3*y).*cos(2*x)+rand;
 
-
 speed = sqrt(u.^2 + v.^2);
 Re = rho * speed .* L / mu; % Trägheitskräfte zu viskosen Kräfte
 
@@ -43,3 +42,17 @@ title('Re(x,y)')
 subplot(1,2,2)
 surf(n)
 title('O(Re/Fr)')
+
+% Geschwindigkeit
+v = linspace(0.01, 5, 100);
+
+Re = rho * v .* L / mu; % Trägheitskräfte zu viskosen Kräfte
+Fr = v ./ sqrt(g .* L);  % Trägheitskräfte zu Schwerekräfte
+
+% Plot
+figure(4)
+loglog(Re, Fr, 'LineWidth', 2)
+xlabel('Reynolds number')
+ylabel('Froude number')
+legend('Fr(Re)')
+grid on
