@@ -7,12 +7,12 @@ Lx, Ly = 1.0, 1.0
 dx = Lx / nx
 dy = Ly / ny
 
-# Zeit
+# Time
 dt = 0.001
 nt = 1000
 
 # Parameter
-nu = 0.01  # Viskosität
+nu = 0.01 
 rho = 1000
 # Felder
 u = np.zeros((nx, ny))
@@ -64,14 +64,15 @@ for n in range(nt):
 
 
 speed = np.transpose(np.sqrt(u**2 + v**2))
-#compressibility=divergence(u,v)
+compressibility=divergence(u,v)
+
 x = np.linspace(0, Lx, nx)
 y = np.linspace(0, Ly, ny)
 X, Y = np.meshgrid(x, y)
 Re=rho * speed.T * Lx / nu;
 plt.figure(figsize=(6, 5))
-contour = plt.contourf(X, Y, Re, levels=50, cmap="viridis")
-plt.colorbar(contour, label="Re")
+contour = plt.contourf(X, Y, compressibility)
+plt.colorbar(contour, label="div(Re)")
 plt.xlabel("x")
 plt.ylabel("y")
 plt.tight_layout()
