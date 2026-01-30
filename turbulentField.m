@@ -13,7 +13,7 @@ Re = rho * speed .* L / mu; % Trägheitskräfte zu viskosen Kräfte
 
 Fr = speed ./ sqrt(g .* L);  % Trägheitskräfte zu Schwerekräfte
 
-figure
+figure(1)
 imagesc(x(1,:), y(:,1), Fr)
 set(gca,'YDir','normal')
 colorbar
@@ -24,3 +24,25 @@ title('Fr(x,y)')
 hold on
 quiver(x,y,u,v,'k')
 hold off
+
+n = Re/Fr;
+
+figure(2)
+plot(x(50,:), Re)
+xlim([0 L])
+xlabel('x')
+ylabel('y')
+
+figure(3)
+subplot(1,2,1)
+plot(x(25,:), Re)
+xlim([0 L])
+xlabel('x')
+ylabel('y')
+title('Re(x,y)')
+subplot(1,2,2)
+plot(x(75,:), Fr)
+xlim([0 L])
+xlabel('x')
+ylabel('y')
+title('Fr(x,y)')
