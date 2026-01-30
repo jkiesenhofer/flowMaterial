@@ -1,15 +1,15 @@
 % 2d Laminar flow
 clear; clc;
 
-% Grid
+% Gitter
 nx = 41; ny = 41;
 Lx = 1; Ly = 1;
 dx = Lx/(nx-1);
 dy = Ly/(ny-1);
 
 % Parameter
-rho = 1;
-nu = 0.1;
+rho = 7900;
+nu = 1e-1;
 dt = 0.001;
 nt = 500;
 
@@ -38,14 +38,12 @@ for n = 1:nt
         + dt/dy^2 * (vn(3:end,2:end-1) - 2*vn(2:end-1,2:end-1) + vn(1:end-2,2:end-1)));
 
     % Boundaries (Cavity)
-    u(:,1) = 0; u(:,end) = 0;
-    u(1,:) = 0; u(end,:) = 1;   % moving lid
-    v(:,:) = 0;
-
-    % Plot
-    if mod(n,50)==0
-        quiver(u,v)
-        title(['t = ',num2str(n*dt)])
-        drawnow
-    end
+    u(:,1) = 2; u(:,end) = 5;
+    u(1,:) = 3; u(end,:) = 0;
+    v(:,1) = 2;
+    u(1,:) = 0; u(end,:) = 0;
 end
+speed = sqrt(u.^2 + v.^2);
+contourf(rho * speed .* Lx / nu)
+xlabel('x')
+ylabel('y')
