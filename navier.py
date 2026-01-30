@@ -72,7 +72,7 @@ X, Y = np.meshgrid(x, y)
 Re=rho * speed.T * Lx / nu;
 plt.figure(figsize=(6, 5))
 contour = plt.contourf(X, Y, compressibility)
-plt.colorbar(contour, label="div(Re)")
+plt.colorbar(contour, label="div(v)")
 plt.xlabel("x")
 plt.ylabel("y")
 plt.tight_layout()
