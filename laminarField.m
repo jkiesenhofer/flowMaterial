@@ -1,7 +1,7 @@
 % 2d Laminar flow
 clear; clc;
 
-% Gitter
+% Grid
 nx = 41; ny = 41;
 Lx = 1; Ly = 1;
 dx = Lx/(nx-1);
