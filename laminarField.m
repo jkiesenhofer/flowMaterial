@@ -37,7 +37,7 @@ for n = 1:nt
         + nu * (dt/dx^2 * (vn(2:end-1,3:end) - 2*vn(2:end-1,2:end-1) + vn(2:end-1,1:end-2)) ...
         + dt/dy^2 * (vn(3:end,2:end-1) - 2*vn(2:end-1,2:end-1) + vn(1:end-2,2:end-1)));
 
-    % Boundaries (Cavity)
+    % Boundaries 
     u(:,1) = 2; u(:,end) = rand;
     u(1,:) = 3; u(end,:) = 0;
     v(:,1) = 8;
