@@ -37,7 +37,7 @@ for n = 1:nt
         + nu * (dt/dx^2 * (vn(2:end-1,3:end) - 2*vn(2:end-1,2:end-1) + vn(2:end-1,1:end-2)) ...
         + dt/dy^2 * (vn(3:end,2:end-1) - 2*vn(2:end-1,2:end-1) + vn(1:end-2,2:end-1)));
 
-    % Boundaries 
+    % Boundaries
     u(:,1) = 2; u(:,end) = rand;
     u(1,:) = 3; u(end,:) = 0;
     v(:,1) = 8;
@@ -45,16 +45,21 @@ for n = 1:nt
 end
 speed = sqrt(u.^2 + v.^2);
 Re=rho * speed .* Lx / nu;
-
+div = u./dx+v./dy;
 %Re=Re/max(max(Re));
 
-subplot(1,2,1)
-contourf(Re)
+%subplot(1,2,1)
+%contourf(Re)
+%colorbar
+%xlabel('x')
+%ylabel('y')
+
+%subplot(1,2,2)
+contourf(div)
+%quiver(u,v)
+xlim([0 nx])
+ylim([0 ny])
 colorbar
 xlabel('x')
 ylabel('y')
-
-subplot(1,2,2)
-quiver(u,v)
-xlim([0 nx])
-ylim([0 ny])
+title('div(v)')
