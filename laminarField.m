@@ -44,8 +44,11 @@ for n = 1:nt
 speed = sqrt(u.^2 + v.^2);
 Re=rho * speed .* Lx / nu;
 [dudx, dudy] = gradient(u, dx, dy);
+[dvdx, dvdy] = gradient(v, dx, dy);
 
-contourf(speed)
+div=dudx+dvdy;
+
+contourf(div)
 %quiver(u,v)
 xlim([0 nx])
 ylim([0 ny])
