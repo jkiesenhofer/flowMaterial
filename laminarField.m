@@ -41,8 +41,6 @@ for n = 1:nt
     v(26:end,end-20) = -5;
     p(17:25,17:25) = 0.95e+5;
 
-end
-
 speed = sqrt(u.^2 + v.^2);
 Re=rho * speed .* Lx / nu;
 divU = u./dx + v./dy;
@@ -55,3 +53,5 @@ colorbar
 xlabel('x')
 ylabel('y')
 axis equal
+drawnow
+end
