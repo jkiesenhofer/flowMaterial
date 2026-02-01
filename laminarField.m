@@ -45,7 +45,7 @@ speed = sqrt(u.^2 + v.^2);
 Re=rho * speed .* Lx / nu;
 divU = u./dx + v./dy;
 
-contourf(divU)
+contourf(speed)
 %quiver(u,v)
 xlim([0 nx])
 ylim([0 ny])
