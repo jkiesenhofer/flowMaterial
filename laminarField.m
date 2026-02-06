@@ -1,60 +1,70 @@
-% 2d Laminar flow
-clear; clc;
+[x,y] = meshgrid(linspace(0,2*pi,100));
+rho = 7900;
+mu = 1e-1;
+g = 9.81;
+L = (max(max(x)) + max(max(y)))/2;
 
-% Gitter
-nx = 41; ny = 41;
-Lx = 1; Ly = 1;
-dx = Lx/(nx-1);
-dy = Ly/(ny-1);
-
-% Parameter
-rho = 1000; % kg/m^3
-nu = 1e-3;
-dt = 0.001;
-nt = 18;
-
-% Fields
-u = zeros(ny,nx);
-v = zeros(ny,nx);
-p = ones(ny,nx)*1e+5;
-
-for n = 1:nt
-    un = u;
-    vn = v;
-
-    % Velocity updates
-    u(2:end-1,2:end-1) = un(2:end-1,2:end-1) ...
-        - dt/dx * un(2:end-1,2:end-1) .* (un(2:end-1,2:end-1) - un(2:end-1,1:end-2)) ...
-        - dt/dy * vn(2:end-1,2:end-1) .* (un(2:end-1,2:end-1) - un(1:end-2,2:end-1)) ...
-        - dt/(2*rho*dx) * (p(2:end-1,3:end) - p(2:end-1,1:end-2)) ...
-        + nu * (dt/dx^2 * (un(2:end-1,3:end) - 2*un(2:end-1,2:end-1) + un(2:end-1,1:end-2)) ...
-        + dt/dy^2 * (un(3:end,2:end-1) - 2*un(2:end-1,2:end-1) + un(1:end-2,2:end-1)));
-
-    v(2:end-1,2:end-1) = vn(2:end-1,2:end-1) ...
-        - dt/dx * un(2:end-1,2:end-1) .* (vn(2:end-1,2:end-1) - vn(2:end-1,1:end-2)) ...
-        - dt/dy * vn(2:end-1,2:end-1) .* (vn(2:end-1,2:end-1) - vn(1:end-2,2:end-1)) ...
-        - dt/(2*rho*dy) * (p(3:end,2:end-1) - p(1:end-2,2:end-1)) ...
-        + nu * (dt/dx^2 * (vn(2:end-1,3:end) - 2*vn(2:end-1,2:end-1) + vn(2:end-1,1:end-2)) ...
-        + dt/dy^2 * (vn(3:end,2:end-1) - 2*vn(2:end-1,2:end-1) + vn(1:end-2,2:end-1)));
-
-    % Boundaries
-    v(26:end,end-20) = -5;
-    p(17:25,17:25) = 0.95e+5;
+u =  sin(y) + 0.5*cos(3*x).*sin(2*y);
+v = -sin(x) + 0.5*sin(3*y).*cos(2*x);
 
 speed = sqrt(u.^2 + v.^2);
-Re=rho * speed .* Lx / nu;
-[dudx, dudy] = gradient(u, dx, dy);
-[dvdx, dvdy] = gradient(v, dx, dy);
+Re = rho * speed .* L / mu; % Trägheitskräfte zu viskosen Kräfte
 
-div=dudx+dvdy;
+Fr = speed ./ sqrt(g .* L);  % Trägheitskräfte zu Schwerekräfte
 
-contourf(div)
-%quiver(u,v)
-xlim([0 nx])
-ylim([0 ny])
+
+dx = L/(100);
+dy = L/(100);
+
+[dudy, dudx] = gradient(u, dy, dx);
+[dvdy, dvdx] = gradient(v, dy, dx);
+omega = dvdx - dudy;
+
+figure(1)
+imagesc(x(1,:), y(:,1), Fr)
+set(gca,'YDir','normal')
 colorbar
 xlabel('x')
 ylabel('y')
-axis equal
-drawnow
-end
+title('Fr(x,y)')
+
+hold on
+quiver(x,y,u,v,'k')
+hold off
+
+%{
+n = Re/Fr;
+figure(2)
+plot(x(50,:), Re)
+xlim([0 L])
+xlabel('x')
+ylabel('y')
+
+figure(3)
+subplot(1,2,1)
+plot(x(25,:), Re)
+xlim([0 L])
+xlabel('x')
+ylabel('y')
+title('Re(x,y)')
+subplot(1,2,2)
+surf(n)
+title('O(Re/Fr)')
+
+% Geschwindigkeit
+v = linspace(0.01, 5, 100);
+
+Re = rho * v .* L / mu; % Trägheitskräfte zu viskosen Kräfte
+Fr = v ./ sqrt(g .* L);  % Trägheitskräfte zu Schwerekräfte
+
+% Plot
+figure(4)
+loglog(Re, Fr, 'LineWidth', 2)
+xlabel('Reynolds number')
+ylabel('Froude number')
+legend('Fr(Re)')
+grid on
+%}
+figure(5)
+surf(omega)
+title('Vorticity [1/s]')
