@@ -53,32 +53,36 @@ def update(frame):
     global bubble_pos, particle_pos, bubble_vel, particle_vel
     global attached, attach_offset
 
-    bubble_pos += bubble_vel * dt
-
     if not attached:
+        # normale Bewegung
+        bubble_pos += bubble_vel * dt
         particle_pos += particle_vel * dt
 
         dist_vec = particle_pos - bubble_pos
         dist = np.linalg.norm(dist_vec)
 
         if dist <= bubble_radius + particle_radius:
-            # --- Partikel haftet ---
+            # ----- Haften (inelastische Kollision) -----
             attached = True
 
-            # Normierter Kontaktvektor
-            normal = dist_vec / dist
+            # gemeinsame Geschwindigkeit (Impulserhaltung)
+            total_mass = bubble_mass + particle_mass
+            common_vel = (bubble_mass * bubble_vel +
+                          particle_mass * particle_vel) / total_mass
 
-            # Position exakt auf Oberfläche setzen
+            bubble_vel[:] = common_vel
+            particle_vel[:] = common_vel
+
+            # Partikel exakt auf Oberfläche setzen
+            normal = dist_vec / dist
             particle_pos = bubble_pos + normal * (bubble_radius + particle_radius)
 
-            # Relativer Offset speichern
+            # relativen Abstand merken
             attach_offset = particle_pos - bubble_pos
 
-            # gleiche Geschwindigkeit
-            particle_vel[:] = bubble_vel[:]
-
     else:
-        # --- Partikel bewegt sich mit Bubble ---
+        # ----- Verbund bewegt sich gemeinsam -----
+        bubble_pos += bubble_vel * dt
         particle_pos = bubble_pos + attach_offset
 
     bubble.center = bubble_pos
@@ -88,3 +92,4 @@ def update(frame):
 
 ani = FuncAnimation(fig, update, frames=300, interval=30)
 plt.show()
+
